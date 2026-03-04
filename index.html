@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mumin Ul Bari | Cybersecurity & IT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030a0f;
+      --bg2: #060f17;
+      --panel: #0a1520;
+      --border: #0e2a3a;
+      --accent: #00d4ff;
+      --accent2: #00ff88;
+      --accent3: #ff3e6c;
+      --text: #c8e0ed;
+      --muted: #4a7a96;
+      --glow: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow2: 0 0 20px rgba(0, 255, 136, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.08) 2px,
+          rgba(0, 0, 0, 0.08) 4px);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Animated grid background */
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(3, 10, 15, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 0 2rem;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-logo span {
+      color: var(--accent2);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 2rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent2);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--accent2);
+    }
+
+    .hero-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+
+    .hero-name .first {
+      color: #fff;
+    }
+
+    .hero-name .last {
+      color: var(--accent);
+      text-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+    }
+
+    .hero-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      color: var(--muted);
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .hero-title span {
+      color: var(--accent3);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 620px;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent2);
+      border-color: var(--accent2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 255, 136, 0.1);
+      box-shadow: var(--glow2);
+    }
+
+    /* Floating hex decoration */
+    .hex-deco {
+      position: absolute;
+      right: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 500px;
+      height: 500px;
+      opacity: 0.04;
+      z-index: 1;
+    }
+
+    /* Status badges */
+    .status-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 8px var(--accent2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      position: relative;
+      z-index: 2;
+      padding: 5rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    /* ===== ABOUT ===== */
+    #about {
+      background: var(--bg2);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    .info-table {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .info-row {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .info-key {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      width: 130px;
+      flex-shrink: 0;
+    }
+
+    .info-val {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .info-val a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    /* ===== SKILLS ===== */
+    #skills {
+      background: var(--bg);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .skill-card:nth-child(2)::before {
+      background: var(--accent2);
+    }
+
+    .skill-card:nth-child(3)::before {
+      background: var(--accent3);
+    }
+
+    .skill-card:nth-child(4)::before {
+      background: #ff9d00;
+    }
+
+    .skill-card:nth-child(5)::before {
+      background: #c084fc;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+
+    .skill-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-card-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .skill-card:nth-child(2) .skill-card-title {
+      color: var(--accent2);
+    }
+
+    .skill-card:nth-child(3) .skill-card-title {
+      color: var(--accent3);
+    }
+
+    .skill-card:nth-child(4) .skill-card-title {
+      color: #ff9d00;
+    }
+
+    .skill-card:nth-child(5) .skill-card-title {
+      color: #c084fc;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      color: var(--text);
+      padding: 0.25rem 0.6rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+    }
+
+    /* ===== EXPERIENCE ===== */
+    #experience {
+      background: var(--bg2);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border: 2px solid var(--bg2);
+      transform: rotate(45deg);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-date {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-org {
+      font-size: 0.9rem;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .timeline-desc li {
+      margin-bottom: 0.3rem;
+      list-style: none;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .timeline-desc li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* ===== EDUCATION ===== */
+    #education {
+      background: var(--bg);
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .edu-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .edu-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.05), transparent 70%);
+    }
+
+    .edu-year {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent2);
+      letter-spacing: 3px;
+      margin-bottom: 0.75rem;
+    }
+
+    .edu-degree {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .edu-school {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-detail {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    /* ===== CERTIFICATIONS ===== */
+    #certifications {
+      background: var(--bg2);
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s;
+    }
+
+    .cert-item:hover {
+      border-color: var(--accent2);
+      background: rgba(0, 255, 136, 0.05);
+    }
+
+    .cert-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* ===== COMPETITIONS ===== */
+    #competitions {
+      background: var(--bg);
+    }
+
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .comp-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .comp-card:hover {
+      border-color: var(--accent3);
+      box-shadow: 0 0 30px rgba(255, 62, 108, 0.2);
+    }
+
+    .comp-rank {
+      font-family: 'Orbitron', monospace;
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent3), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .comp-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      letter-spacing: 1px;
+    }
+
+    .comp-detail {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ===== PROJECTS ===== */
+    #projects {
+      background: var(--bg2);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .project-card::before {
+      content: attr(data-num);
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      font-family: 'Orbitron', monospace;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(0, 212, 255, 0.06);
+    }
+
+    .project-lang {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ===== CONTACT ===== */
+    #contact {
+      background: var(--bg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.3s;
+      color: var(--text);
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      background: rgba(0, 212, 255, 0.05);
+      color: var(--accent);
+    }
+
+    .contact-link-icon {
+      font-size: 1.2rem;
+    }
+
+    .contact-link-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .contact-link-val {
+      font-size: 0.9rem;
+    }
+
+    .contact-right p {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    footer p {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
+
+    footer span {
+      color: var(--accent);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-name {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .fade-in:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .fade-in:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    /* Terminal cursor blink */
+    .cursor::after {
+      content: '_';
+      animation: blink 1s infinite;
+      color: var(--accent);
+    }
+
+    @keyframes blink {
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* Typewriter */
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--accent);
+      animation: typing 2s steps(30, end) forwards, blink-caret 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    @keyframes blink-caret {
+      50% {
+        border-color: transparent;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid-bg"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">M<span>.</span>BARI</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#certifications">Certs</a></li>
+        <li><a href="#competitions">CTF</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-tag fade-in">Cybersecurity & IT &amp; Enthusiast</div>
+      <div class="hero-name fade-in">
+        <div class="first">MUMIN UL</div>
+        <div class="last">BARI</div>
+      </div>
+      <div class="hero-title fade-in">
+        MSc Computer Science · University of Tartu &nbsp;|&nbsp; <span>Applied Cryptography</span>
+      </div>
+      <p class="hero-desc fade-in">
+        ICT graduate with a passion for cryptography, network security, and secure system design.
+        Thesis in hybrid encryption (AES + ECC). Competing in national cyber drills and CTFs.
+        Currently advancing in cybersecurity at University of Tartu, Estonia.
+      </p>
+      <div class="hero-cta fade-in">
+        <a href="#skills" class="btn btn-primary">▸ View Skills</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+      <div class="status-row fade-in">
+        <div class="status-badge">
+          <div class="dot"></div> Open to Opportunities
+        </div>
+        <div class="status-badge">
+          <div class="dot" style="background:#ff9d00;box-shadow:0 0 8px #ff9d00"></div> Tartu, Estonia
+        </div>
+        <div class="status-badge">
+          <div class="dot" style="background:#c084fc;box-shadow:0 0 8px #c084fc"></div> MSc Student 2025–
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG hex deco -->
+    <svg class="hex-deco" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="200,10 380,110 380,290 200,390 20,290 20,110" stroke="#00d4ff" stroke-width="1" />
+      <polygon points="200,50 340,125 340,275 200,350 60,275 60,125" stroke="#00d4ff" stroke-width="1" />
+      <polygon points="200,90 300,140 300,260 200,310 100,260 100,140" stroke="#00d4ff" stroke-width="1" />
+      <circle cx="200" cy="200" r="60" stroke="#00ff88" stroke-width="1" />
+      <circle cx="200" cy="200" r="90" stroke="#00ff88" stroke-width="0.5" />
+      <line x1="200" y1="10" x2="200" y2="390" stroke="#00d4ff" stroke-width="0.5" />
+      <line x1="20" y1="110" x2="380" y2="290" stroke="#00d4ff" stroke-width="0.5" />
+      <line x1="380" y1="110" x2="20" y2="290" stroke="#00d4ff" stroke-width="0.5" />
+    </svg>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-label">// PROFILE</div>
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm an Information and Communication Engineering graduate with a deep passion for cryptography and
+            cybersecurity. My undergraduate thesis focused on securing cloud-based patient management systems using a
+            hybrid AES + ECC encryption model.</p>
+          <p>Currently pursuing my MSc in Computer Science at the University of Tartu, Estonia, with coursework in
+            Applied Cryptography, Web Security, Attack Detection & Prevention, and Cyber Security Management.</p>
+          <p>I thrive on solving real-world security problems — from competing in national cyber drills to studying the
+            mathematics behind elliptic curve cryptography.</p>
+        </div>
+        <div class="info-table">
+          <div class="info-row">
+            <span class="info-key">Location</span>
+            <span class="info-val">Tartu, Estonia</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Email</span>
+            <span class="info-val"><a href="mailto:md.muminulbari@gmail.com">md.muminulbari@gmail.com</a></span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Phone</span>
+            <span class="info-val">+372 5377 7452</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">LinkedIn</span>
+            <span class="info-val"><a href="https://linkedin.com/in/mumin-ul-bari/"
+                target="_blank">mumin-ul-bari</a></span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">GitHub</span>
+            <span class="info-val"><a href="https://github.com/MuminUlBari" target="_blank">MuminUlBari</a></span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">IELTS</span>
+            <span class="info-val">6.0 Overall (Listening 6.5 / Speaking 6.5)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Languages</span>
+            <span class="info-val">Bengali (Native) · English (B2) · Estonian (A1)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label">// TECHNICAL ARSENAL</div>
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🔐</div>
+          <div class="skill-card-title">Security & Cryptography</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AES</span>
+            <span class="skill-tag">RSA</span>
+            <span class="skill-tag">ECC</span>
+            <span class="skill-tag">HMAC</span>
+            <span class="skill-tag">TLS/SSL</span>
+            <span class="skill-tag">Digital Signatures</span>
+            <span class="skill-tag">X.509</span>
+            <span class="skill-tag">Hash Functions</span>
+            <span class="skill-tag">PKI</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🛠️</div>
+          <div class="skill-card-title">Security Tools</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Burp Suite</span>
+            <span class="skill-tag">Wireshark</span>
+            <span class="skill-tag">Kali Linux</span>
+            <span class="skill-tag">Parrot OS</span>
+            <span class="skill-tag">Cisco Packet Tracer</span>
+            <span class="skill-tag">Nmap</span>
+            <span class="skill-tag">Network Analysis</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">💻</div>
+          <div class="skill-card-title">Programming</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C/C++</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Shell Scripts</span>
+            <span class="skill-tag">HTML/CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🖥️</div>
+          <div class="skill-card-title">Operating Systems</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Linux (Ubuntu)</span>
+            <span class="skill-tag">Kali Linux</span>
+            <span class="skill-tag">Parrot OS</span>
+            <span class="skill-tag">Windows</span>
+            <span class="skill-tag">Shell/Bash</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-card-icon">🌐</div>
+          <div class="skill-card-title">Web & Networking</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Web App Architecture</span>
+            <span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Network Security</span>
+            <span class="skill-tag">OWASP</span>
+            <span class="skill-tag">API Security</span>
+            <span class="skill-tag">GitHub</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label">// WORK HISTORY</div>
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">JAN 2020 – DEC 2021</div>
+          <div class="timeline-title">General Secretary</div>
+          <div class="timeline-org">BUP InfoTech Club · Bangladesh University of Professionals</div>
+          <ul class="timeline-desc">
+            <li>Led cybersecurity seminars and technical workshops for 50+ members</li>
+            <li>Managed the national-level "Techsurgence 2019" event with 200+ participants</li>
+            <li>Organized the club's signature Innovation Challenge competition</li>
+            <li>Previously served as Assistant Joint Secretary for Design &amp; Creativity (2019–2020)</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">OCT 2024 – PRESENT</div>
+          <div class="timeline-title">Creative Lead</div>
+          <div class="timeline-org">SoDigi Digital · Dhaka, Bangladesh</div>
+          <ul class="timeline-desc">
+            <li>Oversee end-to-end creative strategy, design, copy, and media buying</li>
+            <li>Act as main client contact and cross-team coordinator</li>
+            <li>Optimize budget, timelines, and workload with limited resources</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">SEP 2023 – PRESENT</div>
+          <div class="timeline-title">Creative Executive</div>
+          <div class="timeline-org">Cha &amp; Chill · Dhaka, Bangladesh</div>
+          <ul class="timeline-desc">
+            <li>Develop static &amp; dynamic content for social media platforms</li>
+            <li>Create motion graphics enhancing digital brand presence</li>
+            <li>Collaborate on monthly data-driven digital campaigns</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">JAN 2023 – PRESENT</div>
+          <div class="timeline-title">Business Development Executive</div>
+          <div class="timeline-org">Chologhuri Limited · Dhaka, Bangladesh</div>
+          <ul class="timeline-desc">
+            <li>Design social media visuals and marketing materials</li>
+            <li>Implement targeted digital campaigns and branding strategies</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">FEB 2019 – JAN 2021</div>
+          <div class="timeline-title">Graphics Engineer / Head In Charge</div>
+          <div class="timeline-org">SKODER TECHNOLOGIES · Dhaka, Bangladesh</div>
+          <ul class="timeline-desc">
+            <li>Designed visual content and creative assets for clients and campaigns</li>
+            <li>Executed platform-specific digital engagement strategies</li>
+            <li>Optimized design workflows for maximum efficiency</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-inner">
+      <div class="section-label">// ACADEMIC BACKGROUND</div>
+      <h2 class="section-title">Education</h2>
+      <div class="edu-grid">
+
+        <div class="edu-card">
+          <div class="edu-year">AUG 2025 – PRESENT</div>
+          <div class="edu-degree">MSc in Computer Science</div>
+          <div class="edu-school">University of Tartu, Estonia</div>
+          <div class="edu-detail">Applied Cryptography · Web Security · Attack Detection &amp; Prevention · Cyber
+            Security Management</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-year">JAN 2018 – DEC 2021</div>
+          <div class="edu-degree">BSc in Information &amp; Communication Engineering</div>
+          <div class="edu-school">Bangladesh University of Professionals (BUP)</div>
+          <div class="edu-detail">CGPA: 3.28 / 4.00 · Thesis: Secure Cloud Patient Management using AES + ECC Hybrid
+            Encryption</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-year">2014 – 2016</div>
+          <div class="edu-degree">Higher Secondary Certificate (Science)</div>
+          <div class="edu-school">Govt. Azizul Haque College, Bogra</div>
+          <div class="edu-detail">GPA: 5.00 / 5.00 · Rajshahi Board</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-year">2006 – 2014</div>
+          <div class="edu-degree">Secondary School Certificate (Science)</div>
+          <div class="edu-school">Bogra Zilla School, Bogra</div>
+          <div class="edu-detail">GPA: 5.00 / 5.00 · Rajshahi Board</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-inner">
+      <div class="section-label">// VERIFIED CREDENTIALS</div>
+      <h2 class="section-title">Certifications</h2>
+      <div class="cert-grid">
+
+        <div class="cert-item">
+          <span class="cert-icon">🔰</span>
+          <div>
+            <div class="cert-name">Google Foundations of Cybersecurity</div>
+            <div class="info-key" style="font-size:0.6rem;margin-top:0.2rem;">2024</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">🌐</span>
+          <div>
+            <div class="cert-name">Google: Networks and Network Security</div>
+            <div class="info-key" style="font-size:0.6rem;margin-top:0.2rem;">2024</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">🐧</span>
+          <div>
+            <div class="cert-name">Google: Linux and SQL (Tools of the Trade)</div>
+            <div class="info-key" style="font-size:0.6rem;margin-top:0.2rem;">2024</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">🎨</span>
+          <div>
+            <div class="cert-name">Google Foundations of UX Design</div>
+            <div class="info-key" style="font-size:0.6rem;margin-top:0.2rem;">2024</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">🔒</span>
+          <div>
+            <div class="cert-name">ICSI | CNSS Certified Network Security Specialist</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">🛡️</span>
+          <div>
+            <div class="cert-name">NSE 1 &amp; NSE 2 Network Security Associate (Fortinet)</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">⚙️</span>
+          <div>
+            <div class="cert-name">Cisco Cybersecurity Essentials</div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-icon">📡</span>
+          <div>
+            <div class="cert-name">Cisco Introduction to Cybersecurity</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETITIONS -->
+  <section id="competitions">
+    <div class="section-inner">
+      <div class="section-label">// CYBER COMPETITIONS</div>
+      <h2 class="section-title">CTF &amp; Cyber Drills</h2>
+      <div class="comp-grid">
+
+        <div class="comp-card">
+          <div class="comp-rank">19<span style="font-size:1.5rem">/200</span></div>
+          <div class="comp-name">University Cyber Drill 2021</div>
+          <div class="comp-detail">BGD e-GOV CIRT</div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-rank">25<span style="font-size:1.5rem">/200</span></div>
+          <div class="comp-name">Flag Hunt 2021</div>
+          <div class="comp-detail">CTF Community Bangladesh</div>
+        </div>
+
+        <div class="comp-card">
+          <div class="comp-rank">43<span style="font-size:1.5rem">/250</span></div>
+          <div class="comp-name">National Cyber Drill 2020</div>
+          <div class="comp-detail">BGD e-GOV CIRT</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label">// NOTABLE WORK</div>
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card" data-num="01">
+          <div class="project-lang">Python · AES · ECC · Cloud</div>
+          <div class="project-name">Secure Cloud Patient Management System</div>
+          <p class="project-desc">Undergraduate thesis. Designed a secure e-bed management system using a hybrid AES +
+            ECC encryption scheme to protect patient medical data stored in the cloud. Used bi-linear maps for locating
+            nearest available hospital beds.</p>
+        </div>
+
+        <div class="project-card" data-num="02">
+          <div class="project-lang">HTML · CSS · JS · PHP · Bootstrap</div>
+          <div class="project-name">Doctor Appointment System</div>
+          <p class="project-desc">Full-stack web application enabling patients to book appointments online. Focused on
+            secure form handling, session management, and responsive UI design.</p>
+        </div>
+
+        <div class="project-card" data-num="03">
+          <div class="project-lang">UML · Software Engineering</div>
+          <div class="project-name">Mental Health Care Patient Information System</div>
+          <p class="project-desc">Software requirements engineering project modeling a secure patient information system
+            for mental health facilities. Designed with confidentiality and access control as core requirements.</p>
+        </div>
+
+        <div class="project-card" data-num="04">
+          <div class="project-lang">Java</div>
+          <div class="project-name">Token Management System</div>
+          <p class="project-desc">Java-based queue and token management system for service environments. Implements
+            priority scheduling and real-time status tracking.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-label">// REACH OUT</div>
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-grid">
+        <div class="contact-links">
+
+          <a href="mailto:md.muminulbari@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">md.muminulbari@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="https://linkedin.com/in/mumin-ul-bari/" target="_blank" class="contact-link">
+            <span class="contact-link-icon">in</span>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-val">linkedin.com/in/mumin-ul-bari</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/MuminUlBari" target="_blank" class="contact-link">
+            <span class="contact-link-icon">⎇</span>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-val">github.com/MuminUlBari</div>
+            </div>
+          </a>
+
+          <a href="tel:+3725377452" class="contact-link">
+            <span class="contact-link-icon">☎</span>
+            <div>
+              <div class="contact-link-label">Phone (Estonia)</div>
+              <div class="contact-link-val">+372 5377 7452</div>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="contact-right">
+          <p>I'm currently pursuing my MSc in Computer Science at the University of Tartu with a focus on applied
+            cryptography, web security, and cyber defence.</p>
+          <p>I'm open to internships, part-time positions, and collaborations in cybersecurity, vulnerability analysis,
+            or security research. Feel free to reach out!</p>
+          <a href="mailto:md.muminulbari@gmail.com" class="btn btn-primary">▸ Send a Message</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>MD MUMIN UL BARI</span> · Cybersecurity & IT · Tartu, Estonia</p>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.skill-card, .edu-card, .cert-item, .comp-card, .project-card, .timeline-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+
+</html>
